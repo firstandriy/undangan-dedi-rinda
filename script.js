@@ -69,35 +69,6 @@ function tick() {
   document.getElementById("seconds").textContent = String(Math.floor(distance / 1000) % 60).padStart(2,"0");
 }
 tick(); setInterval(tick, 1000);
-
-document.addEventListener("DOMContentLoaded", function () {
-  const musik = document.getElementById("musikUndangan");
-  const tombol = document.getElementById("tombolMusik");
-  const ikon = document.getElementById("ikonMusik");
-
-  if (!musik || !tombol || !ikon) return;
-
-  tombol.addEventListener("click", async function () {
-    if (musik.paused) {
-      try {
-        await musik.play();
-        ikon.textContent = "Ⅱ";
-        tombol.setAttribute("aria-label", "Jeda musik");
-      } catch (error) {
-        ikon.textContent = "♫";
-        alert("Musik belum bisa diputar. Periksa file musik.mp3.");
-      }
-    } else {
-      musik.pause();
-      ikon.textContent = "♫";
-      tombol.setAttribute("aria-label", "Putar musik");
-    }
-  });
-
-  musik.addEventListener("ended", function () {
-    ikon.textContent = "♫";
-  });
-});
 // Putar musik ketika tamu membuka undangan
 document.addEventListener("DOMContentLoaded", function () {
   const tombolBuka = document.getElementById("openBtn");
