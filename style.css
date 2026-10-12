@@ -214,3 +214,125 @@ input, select {
     scroll-behavior: auto !important;
   }
 }
+
+/* ===== ANIMASI SINEMATIK DEDI & RINDA ===== */
+
+/* Animasi masuk saat bagian terlihat di layar */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 1s ease,
+    transform 1s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Nama pengantin tampil lebih anggun */
+.cover-names {
+  animation: namaMuncul 1.8s ease both,
+             namaBerayun 5s ease-in-out 1.8s infinite;
+}
+
+@keyframes namaMuncul {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes namaBerayun {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -4px; }
+}
+
+/* Kilau lembut untuk nama dan judul */
+.cover-names,
+.hero h1 {
+  text-shadow: 0 0 12px rgba(226,193,111,.18);
+}
+
+/* Foto pasangan */
+.photo,
+.gallery-photo {
+  opacity: 0;
+  transform: translateY(25px) scale(.96);
+  transition:
+    opacity 1s ease,
+    transform 1.2s cubic-bezier(.2,.7,.2,1),
+    box-shadow .8s ease;
+}
+
+.photo.is-visible,
+.gallery-photo.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Foto galeri bergantian muncul */
+.gallery-photo:nth-child(2) {
+  transition-delay: .18s;
+}
+
+.gallery-photo:nth-child(3) {
+  transition-delay: .36s;
+}
+
+/* Efek zoom halus saat foto disentuh */
+@media (hover: hover) {
+  .photo:hover,
+  .gallery-photo:hover {
+    transform: translateY(-4px) scale(1.035);
+    box-shadow: 0 12px 30px rgba(226,193,111,.25);
+  }
+}
+
+/* Ornamen emas berkilau */
+.ornament {
+  animation: ornamenBerkilau 4s ease-in-out infinite;
+}
+
+@keyframes ornamenBerkilau {
+  0%, 100% {
+    opacity: .72;
+    text-shadow: 0 0 3px rgba(226,193,111,.2);
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 16px rgba(226,193,111,.8);
+  }
+}
+
+/* Kartu acara muncul satu per satu */
+.event {
+  transition: transform .5s ease, box-shadow .5s ease;
+}
+
+.event.is-visible {
+  animation: kartuMuncul .9s ease both;
+}
+
+.event-grid .event:nth-child(2).is-visible {
+  animation-delay: .2s;
+}
+
+@keyframes kartuMuncul {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hormati pengaturan pengurangan animasi */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .photo,
+  .gallery-photo,
+  .cover-names,
+  .ornament,
+  .event {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
