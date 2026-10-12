@@ -98,3 +98,16 @@ document.addEventListener("DOMContentLoaded", function () {
     ikon.textContent = "♫";
   });
 });
+// Putar musik ketika tamu membuka undangan
+document.addEventListener("DOMContentLoaded", function () {
+  const tombolBuka = document.getElementById("openBtn");
+  const musik = document.getElementById("bgMusic");
+
+  if (!tombolBuka || !musik) return;
+
+  tombolBuka.addEventListener("click", function () {
+    musik.play().catch(function (error) {
+      console.log("Musik belum dapat diputar:", error);
+    });
+  });
+});
