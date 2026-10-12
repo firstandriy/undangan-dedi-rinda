@@ -166,3 +166,34 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+/* ===== ANIMASI SAAT HALAMAN DIGULIR ===== */
+document.addEventListener("DOMContentLoaded", function () {
+  const elemenAnimasi = document.querySelectorAll(
+    ".hero-inner, .quote, .couple, .details, .gallery, " +
+    ".rsvp, .wishes, .gift, .closing, .person, " +
+    ".photo, .gallery-photo, .event"
+  );
+
+  /* Browser lama tetap menampilkan seluruh konten */
+  if (!("IntersectionObserver" in window)) return;
+
+  const pengamat = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          pengamat.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: "0px 0px -35px 0px"
+    }
+  );
+
+  elemenAnimasi.forEach(function (elemen) {
+    elemen.classList.add("reveal");
+    pengamat.observe(elemen);
+  });
+});
