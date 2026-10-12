@@ -56,3 +56,161 @@
     filter: brightness(1);
   }
 }
+/* ===== TEMA MEWAH HITAM EMAS ===== */
+:root {
+  --gold: #e2c16f;
+  --gold-light: #fff0b0;
+  --black: #100e0b;
+  --black-soft: #1c1812;
+  --cream: #f8f0dc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black) !important;
+  color: var(--cream) !important;
+}
+
+/* Sampul depan */
+.cover {
+  background: #100e0b !important;
+}
+
+.cover-card {
+  background:
+    linear-gradient(180deg, rgba(12,10,8,.70), rgba(12,10,8,.97)),
+    url("foto-sampul.jpg") center 32% / cover !important;
+  border: 1px solid rgba(226,193,111,.65);
+  box-shadow: 0 0 35px rgba(226,193,111,.15);
+}
+
+/* Halaman utama */
+.hero,
+.section,
+.closing,
+footer {
+  background-color: var(--black) !important;
+  color: var(--cream) !important;
+}
+
+.hero {
+  background-image:
+    radial-gradient(ellipse at top, #49391b 0%, #100e0b 65%) !important;
+}
+
+.details,
+.quote,
+.gift,
+.rsvp,
+.wishes {
+  background: linear-gradient(145deg, #211b11, #100e0b 70%) !important;
+}
+
+/* Judul dan ornamen */
+h1, h2, h3,
+.eyebrow,
+.ornament,
+.ampersand,
+.event-icon,
+.cover-names span {
+  color: var(--gold) !important;
+}
+
+h1, h2, .cover-names {
+  text-shadow: 0 0 16px rgba(226,193,111,.18);
+}
+
+p, label, .small, .tiny, .intro,
+.hero-date, .date {
+  color: var(--cream);
+}
+
+/* Tombol */
+.button {
+  background: linear-gradient(135deg, #f8e6a3, #bd9137) !important;
+  color: #171108 !important;
+  border: 1px solid var(--gold-light) !important;
+  box-shadow: 0 4px 18px rgba(226,193,111,.18);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 24px rgba(226,193,111,.45);
+}
+
+/* Kartu acara dan amplop digital */
+.event, .person, .bank-card {
+  background: rgba(255,255,255,.035) !important;
+  color: var(--cream) !important;
+  border: 1px solid rgba(226,193,111,.35);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.2);
+}
+
+/* Foto */
+.photo, .gallery-photo {
+  border: 1px solid rgba(226,193,111,.7);
+  box-shadow: 0 5px 25px rgba(226,193,111,.12);
+}
+
+/* Form */
+input, select {
+  background: #211b11 !important;
+  color: #fff0d0 !important;
+  border: 1px solid #8e7135 !important;
+}
+
+/* Kilau emas bergerak */
+.ornament {
+  animation: kilauEmas 3s ease-in-out infinite;
+}
+
+@keyframes kilauEmas {
+  0%, 100% {
+    opacity: .72;
+    text-shadow: 0 0 4px #d8b45a33;
+  }
+  50% {
+    opacity: 1;
+    text-shadow: 0 0 18px #f5d77b, 0 0 32px #d8b45a66;
+  }
+}
+
+/* Animasi saat halaman dibuka */
+.hero-inner {
+  animation: masukElegan 1.5s ease both;
+}
+
+@keyframes masukElegan {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Foto membesar sedikit saat disentuh */
+.photo, .gallery-photo {
+  transition: transform .5s ease, box-shadow .5s ease;
+}
+
+.photo:hover, .gallery-photo:hover {
+  transform: scale(1.025);
+  box-shadow: 0 0 24px #d8b45a55;
+}
+
+/* Hormati pengaturan pengurangan gerakan */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
