@@ -111,3 +111,58 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+/* Animasi elemen saat masuk ke layar */
+document.addEventListener("DOMContentLoaded", function () {
+  const elemen = document.querySelectorAll(
+    ".section, .person, .event, .bank-card, .gallery-photo"
+  );
+
+  elemen.forEach(function (item) {
+    item.classList.add("reveal-ready");
+  });
+
+  const gayaAnimasi = document.createElement("style");
+  gayaAnimasi.textContent = `
+    .reveal-ready {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity .9s ease,
+        transform .9s ease;
+    }
+
+    .reveal-ready.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-ready {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  `;
+  document.head.appendChild(gayaAnimasi);
+
+  if ("IntersectionObserver" in window) {
+    const pengamat = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          pengamat.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    elemen.forEach(function (item) {
+      pengamat.observe(item);
+    });
+  } else {
+    elemen.forEach(function (item) {
+      item.classList.add("is-visible");
+    });
+  }
+});
