@@ -336,3 +336,70 @@ input, select {
     transform: none !important;
   }
 }
+
+/* ===== REVEAL FOTO DAN TEKS ===== */
+.hero-inner,
+.quote,
+.couple,
+.details,
+.gallery,
+.rsvp,
+.wishes,
+.gift,
+.closing,
+.person,
+.event,
+.bank-card,
+.photo,
+.gallery-photo {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+
+.hero-inner.is-visible,
+.quote.is-visible,
+.couple.is-visible,
+.details.is-visible,
+.gallery.is-visible,
+.rsvp.is-visible,
+.wishes.is-visible,
+.gift.is-visible,
+.closing.is-visible,
+.person.is-visible,
+.event.is-visible,
+.bank-card.is-visible,
+.photo.is-visible,
+.gallery-photo.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.photo,
+.gallery-photo {
+  transition:
+    opacity .9s ease,
+    transform 1.2s ease,
+    box-shadow .8s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-inner,
+  .quote,
+  .couple,
+  .details,
+  .gallery,
+  .rsvp,
+  .wishes,
+  .gift,
+  .closing,
+  .person,
+  .event,
+  .bank-card,
+  .photo,
+  .gallery-photo {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
