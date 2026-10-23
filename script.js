@@ -205,3 +205,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // LINK DOA & UCAPAN DAN GOOGLE MAPS SUDAH DIATUR DI HTML
 });
+document.querySelectorAll("[data-copy-account]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const targetId = button.dataset.copyAccount;
+    const target = document.getElementById(targetId);
+    const number = target?.textContent.trim();
+
+    if (!number || number === "Nomor rekening belum diisi") {
+      alert("Nomor rekening belum diisi.");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(number);
+      alert("Nomor rekening berhasil disalin.");
+    } catch (error) {
+      alert("Gagal menyalin otomatis. Silakan salin nomor secara manual.");
+    }
+  });
+});
