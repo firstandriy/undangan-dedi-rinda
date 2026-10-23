@@ -4,9 +4,17 @@
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const whatsappNumber = '6285701221321';
   const galleryFiles = [
-    'foto-sampul.jpg', 'foto-pasangan.jpg', 'foto-adat-1.jpg', 'foto-adat-2.jpg',
-    'cover.jpg', 'foto-pasangan.jpg', 'foto-adat-1.jpg', 'foto-adat-2.jpg',
-    'foto-sampul.jpg', 'foto-adat-1.jpg', 'foto-pasangan.jpg'
+    'foto-galeri-1.jpg',
+    'foto-galeri-2.jpg',
+    'foto-galeri-3.jpg',
+    'foto-galeri-4.jpg',
+    'foto-galeri-5.jpg',
+    'foto-galeri-6.jpg',
+    'foto-galeri-7.jpg',
+    'foto-galeri-8.jpg',
+    'foto-galeri-9.jpg',
+    'foto-galeri-10.jpg',
+    'foto-galeri-11.jpg'
   ];
   const galleryGrid = $('#galleryGrid');
   const lightbox = $('#lightbox');
@@ -162,4 +170,4 @@
 
   window.addEventListener('load', () => setTimeout(() => $('#preloader').classList.add('done'), 350));
 })();
-
+          
