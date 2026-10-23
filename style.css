@@ -582,3 +582,51 @@ h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;margin:0
     transition-duration: .01ms !important;
   }
 }
+/* ANIMASI SINEMATIK COVER */
+#home {
+  transition: opacity 1s ease, transform 1s ease, filter 1s ease;
+  overflow: hidden;
+}
+
+#home.opening {
+  opacity: 0;
+  transform: scale(1.08);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+#home.opened {
+  display: none;
+}
+
+#home .hero-backdrop {
+  animation: cinematicZoom 18s ease-in-out infinite alternate;
+}
+
+@keyframes cinematicZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.09); }
+}
+
+/* ANIMASI TEKS */
+#home .hero-content > * {
+  animation: cinematicText 1s ease both;
+}
+
+#home .hero-content > *:nth-child(1) { animation-delay: .2s; }
+#home .hero-content > *:nth-child(2) { animation-delay: .4s; }
+#home .hero-content > *:nth-child(3) { animation-delay: .6s; }
+#home .hero-content > *:nth-child(4) { animation-delay: .8s; }
+
+@keyframes cinematicText {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
