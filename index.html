@@ -1,1 +1,90 @@
+doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Undangan pernikahan Dedi Herdianto & Rinda Dwi Mangesti, 22 November 2026.">
+  <title>Dedi & Rinda — Royal Javanese Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="is-locked">
+  <div class="preloader" id="preloader" aria-hidden="true"><span class="preloader-mark">✦</span><span>ROYAL JAVANESE</span></div>
+  <audio id="weddingMusic" src="musik.mp3" loop preload="none"></audio>
+  <button class="music-toggle" id="musicToggle" aria-label="Putar musik" title="Putar atau jeda musik"><span class="music-icon">♫</span><span class="music-label">Musik</span></button>
 
+  <main>
+    <section class="cover" id="cover" aria-label="Sampul undangan">
+      <div class="cover-photo" role="img" aria-label="Foto Dedi dan Rinda"></div>
+      <div class="cover-shade"></div><div class="gold-grain"></div>
+      <div class="corner corner-tl">❧</div><div class="corner corner-tr">❧</div><div class="corner corner-bl">❧</div><div class="corner corner-br">❧</div>
+      <div class="cover-content">
+        <div class="eyebrow"><span></span> THE WEDDING OF <span></span></div>
+        <div class="gunungan" aria-hidden="true">❖<small>✦</small></div>
+        <p class="cover-intro">Dengan penuh rasa syukur, kami mengundang</p>
+        <h1><span>Dedi Herdianto</span><i>&amp;</i><span>Rinda Dwi Mangesti</span></h1>
+        <div class="cover-rule"><span>✦</span></div>
+        <p class="cover-date">Minggu Pon<br><strong>22 November 2026</strong></p>
+        <p class="guest-line">Kepada Yth.<br><strong id="guestCover">Bapak/Ibu/Saudara/i</strong></p>
+        <button class="gold-button open-invitation" id="openInvitation"><span>✧</span> Buka Undangan <span>✧</span></button>
+        <p class="cover-hint">Gulir untuk menjelajahi kisah kami</p>
+      </div>
+      <div class="cover-bottom-ornament">✦ ❧ ✦ ❧ ✦</div>
+    </section>
+
+    <div class="invitation" id="invitation" aria-hidden="true">
+      <section class="section intro-section reveal" id="salam">
+        <div class="section-ornament">❧ ✦ ❧</div><p class="eyebrow">BISMILLAHIRRAHMANIRRAHIM</p>
+        <h2>Assalamu’alaikum<br><em>Warahmatullahi Wabarakatuh</em></h2>
+        <p class="body-copy">Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami. Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+        <div class="couple-names"><span>Dedi Herdianto</span><i>&amp;</i><span>Rinda Dwi Mangesti</span></div>
+        <p class="date-line">Minggu Pon, 22 November 2026</p><div class="section-ornament">✦</div>
+      </section>
+
+      <section class="countdown-section reveal" id="countdown">
+        <div class="countdown-backdrop"></div><div class="section-inner">
+          <p class="eyebrow">MENUJU HARI BAHAGIA</p><h2>Hitung Mundur</h2><p class="muted">Sebuah awal dari selamanya</p>
+          <div class="countdown" aria-label="Hitung mundur pernikahan">
+            <div class="count-box"><strong id="days">000</strong><span>Hari</span></div><div class="count-box"><strong id="hours">00</strong><span>Jam</span></div><div class="count-box"><strong id="minutes">00</strong><span>Menit</span></div><div class="count-box"><strong id="seconds">00</strong><span>Detik</span></div>
+          </div><p class="countdown-date">22 · 11 · 2026</p>
+        </div>
+      </section>
+
+      <section class="section event-section reveal" id="acara">
+        <div class="section-ornament">❖</div><p class="eyebrow">SAVE THE DATE</p><h2>Detail Acara</h2><p class="body-copy">Dengan penuh kebahagiaan, kami menantikan kehadiran dan doa restu Anda.</p>
+        <div class="event-cards">
+          <article class="event-card"><div class="event-symbol">♧</div><p class="eyebrow">ACARA PERTAMA</p><h3>Akad Nikah</h3><div class="event-line"></div><p>Minggu Pon, 22 November 2026</p><p class="event-time">08.00 WIB</p></article>
+          <article class="event-card"><div class="event-symbol">✦</div><p class="eyebrow">ACARA KEDUA</p><h3>Resepsi</h3><div class="event-line"></div><p>Minggu Pon, 22 November 2026</p><p class="event-time">10.00 WIB</p></article>
+        </div>
+        <div class="location-card"><div class="location-icon">⌖</div><h3>Lokasi Acara</h3><p>Blumbang RT004/RW001, Desa Semawung,<br>Kecamatan Andong, Kabupaten Boyolali</p><a class="outline-button" href="https://maps.app.goo.gl/XxemtFyRjY9TRCft8?g_st=aw" target="_blank" rel="noopener">⌖ Buka Google Maps</a></div>
+      </section>
+
+      <section class="gallery-section reveal" id="galeri">
+        <div class="section-inner"><div class="section-ornament">❧ ✦ ❧</div><p class="eyebrow">OUR MOMENTS</p><h2>Galeri Foto</h2><p class="muted">Sepenggal kisah, sejuta kenangan</p>
+          <div class="gallery-grid" id="galleryGrid"></div><p class="gallery-note">Sentuh foto untuk melihat lebih dekat</p>
+        </div>
+      </section>
+
+      <section class="section rsvp-section reveal" id="rsvp">
+        <div class="section-ornament">✦</div><p class="eyebrow">KONFIRMASI KEHADIRAN</p><h2>Doa &amp; Kehadiran</h2><p class="body-copy">Kehadiran dan doa restu Anda adalah hadiah yang sangat berarti bagi kami.</p>
+        <form id="rsvpForm" class="rsvp-form"><label for="guestName">Nama Anda</label><input id="guestName" name="nama" type="text" placeholder="Masukkan nama" autocomplete="name" required><label for="guestCount">Jumlah yang hadir</label><select id="guestCount" name="jumlah"><option value="1 orang">1 orang</option><option value="2 orang">2 orang</option><option value="3 orang">3 orang</option><option value="4 orang">4 orang</option><option value="5 orang atau lebih">5 orang atau lebih</option></select><label for="attendance">Konfirmasi</label><select id="attendance" name="kehadiran"><option value="Insyaallah hadir">Insyaallah hadir</option><option value="Mohon maaf, belum bisa hadir">Mohon maaf, belum bisa hadir</option></select><button class="gold-button" type="submit">Kirim RSVP via WhatsApp ↗</button></form>
+      </section>
+
+      <section class="section gift-section reveal" id="amplop">
+        <div class="section-ornament">❖</div><p class="eyebrow">TANDA KASIH</p><h2>Amplop Digital</h2><p class="body-copy">Doa restu Anda merupakan hadiah terindah. Bagi yang ingin berbagi tanda kasih, dapat melalui rekening berikut.</p>
+        <div class="bank-card"><div class="bank-top"><span class="bank-symbol">◈</span><span class="bank-name">BCA</span></div><p class="account-number" id="bcaNumber">3600121242</p><p class="account-owner">DEDI HERDIANTO</p><button class="outline-button copy-account" data-copy="3600121242" data-bank="BCA">▣ Salin Nomor Rekening</button></div>
+        <div class="bank-card"><div class="bank-top"><span class="bank-symbol">◈</span><span class="bank-name bri">BRI</span></div><p class="account-number" id="briNumber">339901065791535</p><p class="account-owner">Rinda Dwi Mangesti</p><button class="outline-button copy-account" data-copy="339901065791535" data-bank="BRI">▣ Salin Nomor Rekening</button></div><p class="copy-status" id="copyStatus" aria-live="polite"></p>
+      </section>
+
+      <section class="section closing-section reveal" id="penutup"><div class="section-ornament">❧ ✦ ❧</div><p class="eyebrow">TERIMA KASIH</p><h2>Merupakan kebahagiaan bagi kami</h2><p class="body-copy">Atas kehadiran, doa, dan restu yang diberikan, kami mengucapkan terima kasih yang tulus.</p><div class="couple-names"><span>Dedi Herdianto</span><i>&amp;</i><span>Rinda Dwi Mangesti</span></div><p class="closing-blessing">Wassalamu’alaikum Warahmatullahi Wabarakatuh</p><div class="section-ornament">✦ ❧ ✦</div><p class="footer-mark">MADE WITH LOVE · 2026</p></section>
+    </div>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeri foto" aria-hidden="true"><button class="lightbox-close" id="lightboxClose" aria-label="Tutup foto">×</button><button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Foto sebelumnya">‹</button><div class="lightbox-content"><img id="lightboxImage" src="" alt="Foto Dedi dan Rinda"><p id="lightboxCount">1 / 11</p></div><button class="lightbox-arrow next" id="lightboxNext" aria-label="Foto berikutnya">›</button></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+                                                                                                                                                                                     </html>
