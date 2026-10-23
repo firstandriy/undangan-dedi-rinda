@@ -1,175 +1,118 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#080706">
-  <meta name="description" content="Undangan pernikahan Dedi Herdianto dan Rinda Dwi Mangesti, 22 November 2026.">
-  <title>The Wedding of Dedi &amp; Rinda</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090805">
+<title>Undangan Pernikahan — Dedi & Rinda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="preloader" id="preloader" aria-label="Memuat undangan">
-    <div class="preloader-flower">❋</div>
-    <div class="loader-title">Dedi <span>&amp;</span> Rinda</div>
-    <div class="loader-track"><span id="loaderBar"></span></div>
-    <p id="loaderText">Menyiapkan hari bahagia...</p>
+<header class="hero" id="home">
+ <div class="hero-inner">
+  <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+  <p class="eyebrow">Undangan Pernikahan</p>
+  <p>Dengan memohon rahmat dan ridha Allah SWT</p>
+  <h1 class="script">Dedi &amp; Rinda</h1>
+  <div class="date">22 NOVEMBER 2026</div>
+  <div class="ornament">— ✧ ❖ ✧ —</div>
+  <p>Kepada Bapak/Ibu/Saudara/i</p>
+  <p class="gold" id="guest">Tamu Undangan</p>
+  <a class="btn" href="#quran">Buka Undangan ↓</a>
+  <span class="scrollhint">DENGAN PENUH RASA SYUKUR</span>
+ </div>
+</header>
+
+<section class="section" id="quran">
+ <div class="frame quran">
+  <p class="eyebrow">Ayat suci Al-Qur’an</p><h2>Ikatan dalam Kasih Sayang</h2>
+  <div class="arabic">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنْفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</div>
+  <p class="translation">“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”</p>
+  <p class="ref">QS. AR-RUM: 21</p>
+  <div class="ornament">❖</div>
+  <p class="notice">Video tilawah dapat ditambahkan di sini setelah file video atau tautan video pilihan Anda tersedia.</p>
+  <button class="btn outline" id="videoInfo">Cara menambahkan video tilawah</button>
+  <p class="notice" id="videoNote" hidden>Ganti bagian video pada file index.html dengan tautan MP4 milik Anda, atau sematkan video YouTube yang berisi tilawah Al-Qur’an. Pastikan audio dan sumbernya sesuai pilihan Anda.</p>
+ </div>
+</section>
+
+<section class="section" id="mempelai">
+ <div class="eyebrow">Assalamu’alaikum warahmatullahi wabarakatuh</div>
+ <h2>Dengan memohon restu</h2>
+ <p class="lead">Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:</p>
+ <div class="two">
+  <article class="person"><div class="ornament">❦</div><p class="eyebrow">Mempelai Pria</p><h3>DEDI HERDIANTO</h3><p>Putra dari Bapak Sarpiono<br>dan Ibu Yuminah</p></article>
+  <article class="person"><div class="ornament">❦</div><p class="eyebrow">Mempelai Wanita</p><h3>RINDA DWI MANGESTI</h3><p>Putri dari Bapak Suhardi<br>dan Ibu Imung Murdilem</p></article>
+ </div>
+ <p class="lead" style="margin-top:28px">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
+ <div class="ornament">✧ ❖ ✧</div>
+</section>
+
+<section class="section" style="padding-top:35px">
+ <div class="frame">
+  <p class="eyebrow">Menuju Hari Bahagia</p><h2>Hari Bahagia Kami</h2>
+  <div class="countdown" aria-live="polite">
+   <div class="count"><strong id="days">--</strong><span>Hari</span></div><div class="count"><strong id="hours">--</strong><span>Jam</span></div><div class="count"><strong id="minutes">--</strong><span>Menit</span></div><div class="count"><strong id="seconds">--</strong><span>Detik</span></div>
   </div>
+  <p class="gold">Minggu, 22 November 2026</p>
+  <button class="btn outline" id="calendarBtn">＋ Tambah ke Kalender</button>
+ </div>
+</section>
 
-  <audio id="bgMusic" src="musik-baru.mp3" preload="metadata" loop></audio>
+<section class="section" id="acara">
+ <p class="eyebrow">Save the date</p><h2>Detail Acara</h2><p class="lead">Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir dan menjadi bagian dari hari istimewa kami.</p>
+ <div class="events">
+  <article class="event"><div class="ornament">✧</div><h3>Akad Nikah</h3><p><b>Minggu, 22 November 2026</b></p><p>Pukul 08.00 WIB</p><p>Masjid Al-Hidayah</p><p>Jl. Sudarno No.12, Bangunrejo</p></article>
+  <article class="event"><div class="ornament">✧</div><h3>Resepsi</h3><p><b>Minggu, 22 November 2026</b></p><p>Pukul 11.00–15.00 WIB</p><p>Gedung Serbaguna Satria</p><p>Jl. Merdeka No.45, Bangunrejo</p></article>
+ </div>
+ <p style="margin-top:25px"><a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Masjid+Al-Hidayah+Bangunrejo">⌖ Lihat Lokasi Akad</a> <a class="btn outline" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Gedung+Serbaguna+Satria+Bangunrejo">⌖ Lokasi Resepsi</a></p>
+</section>
 
-  <button class="music-toggle" id="musicToggle" aria-label="Putar atau jeda musik">
-    <span class="music-note">♫</span><span id="musicLabel">Putar Musik</span>
-  </button>
 
-  <main>
-    <section class="hero section-screen" id="home">
-      <div class="hero-backdrop"></div>
-      <div class="gold-dust" aria-hidden="true"></div>
-      <div class="hero-frame ornament-frame">
-        <span class="corner c1">❧</span><span class="corner c2">❧</span>
-        <span class="corner c3">❧</span><span class="corner c4">❧</span>
-      </div>
-      <div class="hero-content reveal">
-        <p class="eyebrow">THE WEDDING OF</p>
-        <p class="bismillah">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-        <h1><span>Dedi</span><i>&amp;</i><span>Rinda</span></h1>
-        <p class="hero-date">22 · 11 · 2026</p>
-        <div class="hero-divider"><span>✧</span></div>
-        <p class="guest-line">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-        <p class="guest-name" id="guestName">Tamu Undangan</p>
-        <button class="gold-button open-invitation" id="openInvitation">Buka Undangan <span>✦</span></button>
-        <p class="scroll-hint">G E S E R  K E  B A W A H <span>⌄</span></p>
-      </div>
-      <div class="hero-bottom-ornament">❧ ❋ ❧</div>
-    </section>
 
-    <section class="quran section-pad reveal" id="quran">
-      <div class="section-ornament">✧</div>
-      <p class="eyebrow">LOVE IN THE HOLY QURAN</p>
-      <h2>Ayat Suci</h2>
-      <p class="arabic" lang="ar" dir="rtl">وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</p>
-      <p class="translation">“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.”</p>
-      <p class="verse-ref">QS. Ar-Rum: 21</p>
-      <div class="section-ornament">❦</div>
-    </section>
+<section class="section" id="galeri">
+ <p class="eyebrow">Momen istimewa</p><h2>Galeri Foto</h2><p class="lead">Sepenggal kisah menuju hari bahagia kami.</p>
+ <div class="gallery">
+  <img loading="lazy" alt="Inspirasi foto pasangan pengantin" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=700&q=80">
+  <img loading="lazy" alt="Dekorasi pernikahan" src="https://images.unsplash.com/photo-1519225421980-715cb0215AED?auto=format&fit=crop&w=700&q=80">
+  <img loading="lazy" alt="Detail dekorasi pernikahan" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=700&q=80">
+  <img loading="lazy" alt="Suasana resepsi" src="https://images.unsplash.com/photo-1507504031003-b417219a0zado?auto=format&fit=crop&w=700&q=80">
+  <img loading="lazy" alt="Bunga pernikahan" src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=700&q=80">
+  <img loading="lazy" alt="Dekorasi romantis" src="https://images.unsplash.com/photo-1507504031003-b417219a0zado?auto=format&fit=crop&w=700&q=80">
+ </div>
+ <p class="notice" style="margin-top:15px">Foto di atas hanya foto contoh dari Unsplash. Ganti dengan foto Dedi &amp; Rinda sebelum undangan dibagikan.</p>
+</section>
 
-    <section class="intro section-pad reveal" id="intro">
-      <p class="eyebrow">ASSALAMU’ALAIKUM WARAHMATULLAHI WABARAKATUH</p>
-      <h2>Dengan penuh rasa syukur</h2>
-      <p class="body-copy">Dengan memohon rahmat dan ridha Allah SWT, kami bermaksud menyelenggarakan pernikahan putra-putri kami:</p>
-      <div class="family-grid">
-        <article class="family-card">
-          <span class="card-flower">✧</span>
-          <p class="eyebrow">MEMPELAI PRIA</p>
-          <h3>DEDI HERDIANTO</h3>
-          <p>Putra dari</p><p class="parents">Bapak Sarjono<br>&amp; Ibu Yuminah</p>
-        </article>
-        <div class="ampersand"> &amp; </div>
-        <article class="family-card">
-          <span class="card-flower">✧</span>
-          <p class="eyebrow">MEMPELAI WANITA</p>
-          <h3>RINDA DWI MANGESTI</h3>
-          <p>Putri dari</p><p class="parents">Alm. Bapak Suhardi<br>&amp; Ibu Imung Murdilem</p>
-        </article>
-      </div>
-      <p class="closing-salam">Wassalamu’alaikum Warahmatullahi Wabarakatuh</p>
-    </section>
+<section class="section" id="rsvp">
+ <p class="eyebrow">Mohon konfirmasi</p><h2>Konfirmasi Kehadiran</h2><p class="lead">Mohon kirimkan konfirmasi kehadiran sebelum 15 November 2026.</p>
+ <form class="form frame" id="rsvpForm">
+  <label for="name">Nama lengkap</label><input id="name" name="name" required placeholder="Nama Anda">
+  <label for="attendance">Konfirmasi kehadiran</label><select id="attendance" name="attendance"><option value="Hadir">Insyaallah hadir</option><option value="Tidak hadir">Mohon maaf, tidak bisa hadir</option></select>
+  <label for="guests">Jumlah tamu</label><select id="guests" name="guests"><option>1 orang</option><option>2 orang</option><option>3 orang</option><option>4 orang</option><option>5 orang</option></select>
+  <label for="message">Ucapan &amp; doa</label><textarea id="message" name="message" placeholder="Tuliskan ucapan dan doa terbaik..."></textarea>
+  <button class="btn" type="submit" style="width:100%;margin-top:18px">➤ Kirim Konfirmasi via WhatsApp</button>
+  <p class="notice">Penting: isi nomor WhatsApp keluarga di konfigurasi JavaScript sebelum digunakan.</p>
+ </form>
+</section>
 
-    <section class="countdown-section section-pad reveal" id="countdown">
-      <p class="eyebrow">SAVE THE DATE</p>
-      <h2>Hari Bahagia Kami</h2>
-      <div class="countdown" aria-label="Hitung mundur pernikahan">
-        <div><strong id="days">00</strong><span>Hari</span></div>
-        <div><strong id="hours">00</strong><span>Jam</span></div>
-        <div><strong id="minutes">00</strong><span>Menit</span></div>
-        <div><strong id="seconds">00</strong><span>Detik</span></div>
-      </div>
-      <p class="date-line">Minggu Pon, 22 November 2026</p>
-      <a class="gold-button button-link" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Dedi+dan+Rinda&dates=20261122T010000Z/20261122T080000Z&details=Akad+dan+resepsi+Dedi+Herdianto+dan+Rinda+Dwi+Mangesti&location=Blumbang%20RT004%20RW001%20Desa%20Semawung%20Andong%20Boyolali" target="_blank" rel="noopener">＋ Tambah ke Kalender</a>
-    </section>
+<section class="section" id="hadiah">
+ <p class="eyebrow">Tanda kasih</p><h2>Amplop Digital</h2><p class="lead">Doa restu Anda merupakan hadiah terindah bagi kami. Bagi yang ingin berbagi tanda kasih, dapat melalui rekening berikut.</p>
+ <div class="bank">
+  <article class="bankcard"><div class="eyebrow">Bank</div><strong>BCA</strong><p class="account" id="bca">1234 5678 9012</p><p>a.n. Dedi Herdianto</p><button class="btn outline copy" data-copy="123456789012">Salin Nomor</button></article>
+  <article class="bankcard"><div class="eyebrow">Bank</div><strong>BRI</strong><p class="account" id="bri">9876 5432 1098</p><p>a.n. Rinda Dwi Mangesti</p><button class="btn outline copy" data-copy="987654321098">Salin Nomor</button></article>
+ </div>
+ <p style="margin-top:18px"><button class="btn" id="copyAll">▣ Salin Semua Rekening</button></p>
+ <p class="notice">Nomor rekening di atas adalah contoh dari desain referensi—WAJIB diganti dan diverifikasi sebelum publikasi.</p>
+</section>
 
-    <section class="events section-pad reveal" id="detail">
-      <p class="eyebrow">WHEN &amp; WHERE</p>
-      <h2>Detail Acara</h2>
-      <div class="event-grid">
-        <article class="event-card">
-          <div class="event-icon">♧</div><p class="eyebrow">AKAD NIKAH</p>
-          <h3>Minggu Pon, 22 November 2026</h3>
-          <p>08.00 WIB</p><div class="thin-line"></div>
-          <p>Blumbang RT004/RW001<br>Desa Semawung, Kec. Andong<br>Kab. Boyolali</p>
-        </article>
-        <article class="event-card">
-          <div class="event-icon">❀</div><p class="eyebrow">RESEPSI</p>
-          <h3>Minggu Pon, 22 November 2026</h3>
-          <p>10.00 WIB</p><div class="thin-line"></div>
-          <p>Blumbang RT004/RW001<br>Desa Semawung, Kec. Andong<br>Kab. Boyolali</p>
-        </article>
-      </div>
-      <a class="gold-button button-link" href="https://maps.app.goo.gl/XxemtFyRjY9TRCft8?g_st=aw" target="_blank" rel="noopener">⌖ Lihat Lokasi</a>
-    </section>
-
-    <section class="gallery-section section-pad reveal" id="gallery">
-      <p class="eyebrow">OUR MOMENTS</p>
-      <h2>Galeri Foto</h2>
-      <p class="body-copy">Momen indah perjalanan cinta kami</p>
-      <div class="gallery-main">
-        <button class="gallery-arrow" id="galleryPrev" aria-label="Foto sebelumnya">‹</button>
-        <button class="gallery-feature" id="galleryOpen" aria-label="Buka foto besar">
-          <img id="featuredPhoto" src="foto-galeri-1.jpg" alt="Momen Dedi dan Rinda" loading="lazy">
-          <span class="zoom-hint">⌕ Lihat foto</span>
-        </button>
-        <button class="gallery-arrow" id="galleryNext" aria-label="Foto berikutnya">›</button>
-      </div>
-      <p class="gallery-count" id="galleryCount">1 / 11</p>
-      <div class="gallery-thumbs" id="galleryThumbs"></div>
-    </section>
-
-    <section class="rsvp-section section-pad reveal" id="rsvp">
-      <p class="eyebrow">KINDLY RSVP</p>
-      <h2>Konfirmasi Kehadiran</h2>
-      <p class="body-copy">Merupakan kehormatan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.</p>
-      <form id="rsvpForm" class="rsvp-form">
-        <label><span>Nama Lengkap</span><input id="rsvpName" name="nama" placeholder="Nama Anda" required></label>
-        <label><span>Jumlah Tamu</span><select id="rsvpCount" name="jumlah"><option value="1">1 orang</option><option value="2">2 orang</option><option value="3">3 orang</option><option value="4">4 orang</option></select></label>
-        <label><span>Konfirmasi</span><select id="rsvpStatus" name="status"><option value="Hadir">Hadir</option><option value="Belum bisa hadir">Belum bisa hadir</option><option value="Masih ragu">Masih ragu</option></select></label>
-        <label class="message-label"><span>Ucapan &amp; Doa (opsional)</span><textarea id="rsvpMessage" name="ucapan" rows="3" placeholder="Tuliskan doa terbaik..."></textarea></label>
-        <button class="gold-button" type="submit">Kirim Konfirmasi via WhatsApp ↗</button>
-      </form>
-    </section>
-
-    <section class="gift-section section-pad reveal" id="gift">
-      <p class="eyebrow">WEDDING GIFT</p>
-      <h2>Amplop Digital</h2>
-      <p class="body-copy">Doa restu Anda adalah hadiah terindah bagi kami. Bagi yang ingin berbagi tanda kasih, dapat melalui rekening berikut.</p>
-      <div class="gift-grid">
-        <article class="gift-card"><span class="bank-mark">BCA</span><p class="gift-owner">DEDI HERDIANTO</p><p class="gift-number" id="bankNumber1">3600121242</p><button class="copy-button" data-copy="bankNumber1">▢ Salin Nomor Rekening</button></article>
-        <article class="gift-card"><span class="bank-mark bri">BRI</span><p class="gift-owner">Rinda Dwi Mangesti</p><p class="gift-number" id="bankNumber2">339901065791535</p><button class="copy-button" data-copy="bankNumber2">▢ Salin Nomor Rekening</button></article>
-      </div>
-      <p class="gift-thanks">Terima kasih atas perhatian dan ketulusan Anda.</p>
-    </section>
-
-    <section class="closing section-screen reveal" id="closing">
-      <div class="closing-overlay"></div>
-      <div class="closing-content">
-        <p class="eyebrow">TERIMA KASIH</p>
-        <h2>Dedi <span>&amp;</span> Rinda</h2>
-        <div class="hero-divider"><span>✧</span></div>
-        <p>Atas kehadiran, doa, dan restu yang diberikan, kami mengucapkan terima kasih.</p>
-        <p class="closing-salam">Wassalamu’alaikum Warahmatullahi Wabarakatuh</p>
-      </div>
-    </section>
-  </main>
-
-  <div class="lightbox" id="photoLightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Tutup foto">×</button>
-    <button class="lightbox-arrow prev" id="lightboxPrev" aria-label="Foto sebelumnya">‹</button>
-    <div class="lightbox-inner"><img id="lightboxImage" alt="Foto Dedi dan Rinda"><p id="lightboxCounter"></p></div>
-    <button class="lightbox-arrow next" id="lightboxNext" aria-label="Foto berikutnya">›</button>
-  </div>
-  <script src="script.js"></script>
-</body>
-</html>
+<footer class="footer">
+ <div class="bismillah">بَارَكَ اللَّهُ لَكُمَا وَبَارَكَ عَلَيْكُمَا</div>
+ <h2 style="margin-top:20px">Terima Kasih</h2><p>Atas doa dan kehadiran Anda</p><div class="script">Dedi &amp; Rinda</div><div class="ornament">— ✧ ❖ ✧ —</div><p class="notice">Wassalamu’alaikum warahmatullahi wabarakatuh</p>
+</footer>
+<button class="music" id="musicBtn" aria-label="Putar musik" title="Putar musik">♫</button>
+<audio id="music" loop preload="none"></audio>
+<div class="modal" id="modal"><button class="close" aria-label="Tutup">&times;</button><img id="modalImg" alt="Foto galeri"></div>
+<script src="script.js" defer></script>
+</body></html>
