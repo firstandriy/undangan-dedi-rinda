@@ -224,3 +224,77 @@ document.querySelectorAll("[data-copy-account]").forEach((button) => {
     }
   });
 });
+/* LUXURY GALLERY: CLICK, SWIPE, NEXT & PREVIOUS */
+(() => {
+  const photos = Array.from(
+    document.querySelectorAll(".gallery-grid .gallery-photo")
+  );
+
+  const box = document.getElementById("photoLightbox");
+  const image = document.getElementById("lightboxImage");
+  const counter = document.getElementById("lightboxCounter");
+  const close = document.getElementById("lightboxClose");
+  const prev = document.getElementById("lightboxPrev");
+  const next = document.getElementById("lightboxNext");
+
+  if (!photos.length || !box || !image || box.dataset.ready) return;
+  box.dataset.ready = "true";
+
+  let index = 0;
+  let startX = 0;
+  let startY = 0;
+
+  function showPhoto(i) {
+    index = (i + photos.length) % photos.length;
+    image.src = photos[index].src;
+    image.alt = photos[index].alt || "Foto Dedi dan Rinda";
+    counter.textContent = `${index + 1} / ${photos.length}`;
+  }
+
+  function openPhoto(i) {
+    showPhoto(i);
+    box.classList.add("active");
+    box.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closePhoto() {
+    box.classList.remove("active");
+    box.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  photos.forEach((photo, i) => {
+    photo.addEventListener("click", () => openPhoto(i));
+  });
+
+  close.addEventListener("click", closePhoto);
+  prev.addEventListener("click", () => showPhoto(index - 1));
+  next.addEventListener("click", () => showPhoto(index + 1));
+
+  box.addEventListener("click", (event) => {
+    if (event.target === box) closePhoto();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (!box.classList.contains("active")) return;
+
+    if (event.key === "Escape") closePhoto();
+    if (event.key === "ArrowLeft") showPhoto(index - 1);
+    if (event.key === "ArrowRight") showPhoto(index + 1);
+  });
+
+  box.addEventListener("touchstart", (event) => {
+    startX = event.changedTouches[0].clientX;
+    startY = event.changedTouches[0].clientY;
+  }, { passive: true });
+
+  box.addEventListener("touchend", (event) => {
+    const dx = event.changedTouches[0].clientX - startX;
+    const dy = event.changedTouches[0].clientY - startY;
+
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+      showPhoto(index + (dx < 0 ? 1 : -1));
+    }
+  }, { passive: true });
+})();
