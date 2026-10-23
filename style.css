@@ -258,3 +258,202 @@ h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;margin:0
     transition-duration: .01ms !important;
   }
 }
+/* ===== CINEMATIC LUXURY BLACK & GOLD ===== */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    opacity 1s ease,
+    transform 1.2s cubic-bezier(.2,.7,.2,1),
+    filter 1s ease;
+}
+
+.hero-backdrop {
+  animation: cinematicZoom 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.hero-content.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-content > * {
+  animation: cinematicText 1s both;
+}
+
+.hero-content > *:nth-child(1) { animation-delay: .15s; }
+.hero-content > *:nth-child(2) { animation-delay: .35s; }
+.hero-content > *:nth-child(3) { animation-delay: .55s; }
+.hero-content > *:nth-child(4) { animation-delay: .75s; }
+.hero-content > *:nth-child(5) { animation-delay: .95s; }
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(255, 220, 145, .14) 48%,
+    transparent 68%
+  );
+  transform: translateX(-120%);
+  animation: goldSweep 5s ease-in-out 1.5s infinite;
+}
+
+.hero-content,
+.hero-frame {
+  position: relative;
+  z-index: 2;
+}
+
+.hero.opening {
+  opacity: 0;
+  transform: scale(1.08);
+  filter: blur(12px) brightness(1.5);
+  pointer-events: none;
+}
+
+.hero.opened {
+  display: none;
+}
+
+#openInvitation {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 18px rgba(212, 175, 91, .22);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+#openInvitation:active {
+  transform: scale(.96);
+}
+
+#openInvitation::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent,
+    rgba(255,255,255,.35),
+    transparent
+  );
+  transform: translateX(-120%);
+  animation: goldSweep 3.5s ease-in-out infinite;
+}
+
+@keyframes cinematicZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.09); }
+}
+
+@keyframes cinematicText {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes goldSweep {
+  0%, 35% { transform: translateX(-120%); }
+  75%, 100% { transform: translateX(120%); }
+}
+
+/* Transisi halus untuk bagian undangan */
+.reveal {
+  transition:
+    opacity .9s ease,
+    transform .9s cubic-bezier(.2,.7,.2,1),
+    filter .9s ease;
+}
+
+.reveal.visible {
+  filter: blur(0);
+}
+
+/* ===== COUNTDOWN BACKGROUND ===== */
+#countdown {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(8, 7, 6, .72),
+      rgba(8, 7, 6, .88)
+    ),
+    url("foto-galeri-3.jpg") center 42% / cover no-repeat;
+  background-attachment: scroll;
+  color: #fff4d7;
+}
+
+#countdown > * {
+  position: relative;
+  z-index: 1;
+}
+
+#countdown h1,
+#countdown h2,
+#countdown h3,
+#countdown .countdown-number,
+#countdown .count-number {
+  color: #e5c477;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .8);
+}
+
+#countdown .countdown-box,
+#countdown .countdown-item,
+#countdown .count-box {
+  background: rgba(12, 10, 8, .65);
+  border: 1px solid rgba(220, 184, 105, .65);
+  border-radius: 12px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+}
+
+/* ===== KREDIT DESAIN ===== */
+.design-credit {
+  padding: 24px 16px 30px;
+  text-align: center;
+  color: #c8ad72;
+  background: #080706;
+  border-top: 1px solid rgba(200, 166, 90, .35);
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.design-credit span {
+  display: block;
+  margin-top: 7px;
+  color: #f4e5bf;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 20px;
+  letter-spacing: 1.5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-backdrop,
+  .hero-content > *,
+  .hero::after,
+  #openInvitation::after {
+    animation: none;
+  }
+
+  .hero,
+  .reveal {
+    transition-duration: .2s;
+  }
+}
