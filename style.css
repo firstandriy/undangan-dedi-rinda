@@ -527,3 +527,104 @@ footer { padding: 25px 15px; text-align: center; color: #998d73; font-size: 10px
     scroll-behavior: auto !important;
   }
 }
+/* ===== ROYAL JAVANESE LUXURY ===== */
+:root {
+  --gold: #d7b568;
+  --gold-light: #f8e7b0;
+  --luxury-black: #090909;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--luxury-black);
+  color: #f8f1e5;
+}
+
+/* Kilau emas halus */
+h1, h2, h3 {
+  text-shadow: 0 0 18px rgba(215, 181, 104, 0.18);
+}
+
+button,
+.btn,
+a.button,
+.open-invitation {
+  transition: transform .35s ease,
+              box-shadow .35s ease,
+              border-color .35s ease;
+}
+
+button:hover,
+.btn:hover,
+a.button:hover,
+.open-invitation:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(215, 181, 104, 0.25);
+}
+
+/* Bingkai foto elegan */
+img {
+  max-width: 100%;
+}
+
+.gallery img,
+section img {
+  border-color: rgba(215, 181, 104, 0.55);
+  transition: transform .6s ease,
+              filter .6s ease,
+              box-shadow .6s ease;
+}
+
+.gallery img:hover,
+section img:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 0 22px rgba(215, 181, 104, 0.2);
+}
+
+/* Cover undangan */
+.cover-card {
+  border: 1px solid rgba(215, 181, 104, 0.75);
+  box-shadow: 0 0 35px rgba(215, 181, 104, 0.12);
+}
+
+/* Garis dekoratif keemasan */
+hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--gold),
+    transparent
+  );
+}
+
+/* Animasi muncul saat halaman digulir */
+.reveal {
+  animation: luxuryAppear .9s ease both;
+}
+
+@keyframes luxuryAppear {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
