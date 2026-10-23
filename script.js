@@ -14,7 +14,9 @@
     'foto-galeri-8.jpg',
     'foto-galeri-9.jpg',
     'foto-galeri-10.jpg',
-    'foto-galeri-11.jpg'
+    'foto-galeri-11.jpg',
+    'foto-galeri-12.jpg',
+    'foto-galeri-13.jpg'
   ];
   const galleryGrid = $('#galleryGrid');
   const lightbox = $('#lightbox');
@@ -170,4 +172,3 @@
 
   window.addEventListener('load', () => setTimeout(() => $('#preloader').classList.add('done'), 350));
 })();
-          
