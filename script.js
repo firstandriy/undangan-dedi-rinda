@@ -57,32 +57,40 @@
     if (musicLabel) musicLabel.textContent = "Putar Musik";
   }
   
+
   // Cinematic opening: cover -> Quran -> wedding introduction
   const openButton = $("#openInvitation");
   const hero = $("#home");
   let invitationOpened = false;
 
-  openButton?.addEventListener("click", async () => {
+  openButton?.addEventListener("click", () => {
     if (invitationOpened) return;
+
     invitationOpened = true;
     openButton.disabled = true;
 
-    // Musik dimulai dari interaksi pengguna.
+    // Mulai musik saat tamu menekan tombol.
     playMusic();
 
-    // Mulai transisi sinematik pada cover.
+    // Efek zoom, blur, dan fade pada cover.
     hero?.classList.add("opening");
 
-    // Beri waktu untuk animasi sebelum membuka isi undangan.
+    // Tunggu transisi cover selesai.
     setTimeout(() => {
-      $("#quran")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
+      hero?.classList.add("opened");
+      document.body.classList.add("invitation-opened");
 
-      // Aktifkan animasi bagian pertama.
-      $("#quran")?.classList.add("visible");
-    }, 1100);
+      // Buka bagian Al-Qur'an terlebih dahulu.
+      const quranSection = $("#quran");
+
+      if (quranSection) {
+        quranSection.classList.add("visible");
+        quranSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    }, 1000);
   });
   musicToggle?.addEventListener("click", () => {
     if (music?.paused) playMusic(); else pauseMusic();
