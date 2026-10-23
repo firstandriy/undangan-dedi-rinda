@@ -1,135 +1,207 @@
-// ===== PENGATURAN UNDANGAN DEDI & RINDA =====
-const WEDDING_DATE = "2026-11-22T08:00:00+07:00";
-const WHATSAPP_NUMBER = "6285701221321"; // nomor RSVP
-const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=Blumbang%20RT004%20RW001%20Desa%20Semawung%20Andong%20Boyolali";
-const WISHES_FORM_URL = "https://forms.google.com/"; // ganti dengan link Google Form ucapan
-const BANK_NAME = ""; // lengkapi setelah nama bank dikonfirmasi
-const ACCOUNT_NUMBER = ""; // lengkapi setelah nomor rekening dikonfirmasi
-const ACCOUNT_OWNER = ""; // lengkapi setelah nama pemilik rekening dikonfirmasi
-const WALLET_NAME = "DANA";
-const WALLET_NUMBER = ""; // lengkapi setelah nomor DANA dikonfirmasi
-const WALLET_OWNER = ""; // lengkapi setelah nama pemilik akun DANA dikonfirmasi
-// ============================================
 
-const params = new URLSearchParams(window.location.search);
-const guest = params.get("to");
-document.getElementById("guestName").textContent = guest ? guest : "Bapak/Ibu/Saudara/i";
-document.getElementById("rsvpName").value = guest || "";
-document.getElementById("mapsLink").href = MAPS_URL;
-document.getElementById("wishLink").href = WISHES_FORM_URL;
-document.getElementById("bankName").textContent = BANK_NAME || "Informasi bank belum diisi";
-document.getElementById("accountNumber").textContent = ACCOUNT_NUMBER || "Nomor rekening belum tersedia";
-document.getElementById("accountOwner").textContent = ACCOUNT_OWNER ? "a.n. " + ACCOUNT_OWNER : "Nama pemilik rekening belum diisi";
-document.getElementById("copyAccount").disabled = !ACCOUNT_NUMBER;
-document.getElementById("walletName").textContent = WALLET_NAME;
-document.getElementById("walletNumber").textContent = WALLET_NUMBER || "Nomor DANA belum tersedia";
-document.getElementById("walletOwner").textContent = WALLET_OWNER || "Nama pemilik akun belum diisi";
-document.getElementById("copyWallet").disabled = !WALLET_NUMBER;
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = (id) => document.getElementById(id);
 
-document.getElementById("openBtn").addEventListener("click", () => {
-  document.getElementById("cover").classList.add("hidden");
-  const music = document.getElementById("bgMusic");
-  music.play().then(() => document.getElementById("musicBtn").textContent = "Ⅱ").catch(() => {});
-});
-document.getElementById("musicBtn").addEventListener("click", async () => {
-  const music = document.getElementById("bgMusic");
-  if (music.paused) {
-    try { await music.play(); document.getElementById("musicBtn").textContent = "Ⅱ"; } catch(e) {}
-  } else {
-    music.pause(); document.getElementById("musicBtn").textContent = "♫";
+  // DATA ACARA
+  const weddingDate = new Date("2026-11-22T08:00:00+07:00");
+  const whatsappNumber = "6285701221321";
+
+  // NAMA TAMU DARI TAUTAN ?to=Nama+Tamu
+  const params = new URLSearchParams(window.location.search);
+  const guest = params.get("to");
+
+  if (guest && $("guestName")) {
+    $("guestName").textContent = guest.trim().slice(0, 100);
   }
-});
-document.getElementById("rsvpForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const name = document.getElementById("rsvpName").value.trim();
-  const attendance = document.getElementById("attendance").value;
-  const count = document.getElementById("guestCount").value;
-  const message = `RSVP Pernikahan Dedi Herdianto & Rinda Dwi Mangesti\nNama: ${name}\nKonfirmasi: ${attendance}\nJumlah tamu: ${count}`;
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank");
-});
-async function copyGiftNumber(number, buttonId, promptLabel) {
-  if (!number) return;
-  const button = document.getElementById(buttonId);
-  try {
-    await navigator.clipboard.writeText(number);
-    button.textContent = "Nomor tersalin ✓";
-  } catch(e) {
-    window.prompt(promptLabel, number);
+
+  // COUNTDOWN
+  function updateCountdown() {
+    let distance = weddingDate.getTime() - Date.now();
+
+    if (distance < 0) distance = 0;
+
+    const days = Math.floor(distance / 86400000);
+    const hours = Math.floor((distance % 86400000) / 3600000);
+    const minutes = Math.floor((distance % 3600000) / 60000);
+    const seconds = Math.floor((distance % 60000) / 1000);
+
+    if ($("days")) $("days").textContent = String(days).padStart(2, "0");
+    if ($("hours")) $("hours").textContent = String(hours).padStart(2, "0");
+    if ($("minutes")) $("minutes").textContent = String(minutes).padStart(2, "0");
+    if ($("seconds")) $("seconds").textContent = String(seconds).padStart(2, "0");
   }
-}
-document.getElementById("copyAccount").addEventListener("click", () => copyGiftNumber(ACCOUNT_NUMBER, "copyAccount", "Salin nomor rekening ini:"));
-document.getElementById("copyWallet").addEventListener("click", () => copyGiftNumber(WALLET_NUMBER, "copyWallet", "Salin nomor DANA ini:"));
-const target = new Date(WEDDING_DATE).getTime();
-function tick() {
-  let distance = target - Date.now();
-  if (distance < 0) distance = 0;
-  document.getElementById("days").textContent = String(Math.floor(distance / 86400000)).padStart(2,"0");
-  document.getElementById("hours").textContent = String(Math.floor(distance / 3600000) % 24).padStart(2,"0");
-  document.getElementById("minutes").textContent = String(Math.floor(distance / 60000) % 60).padStart(2,"0");
-  document.getElementById("seconds").textContent = String(Math.floor(distance / 1000) % 60).padStart(2,"0");
-}
-tick(); setInterval(tick, 1000);
 
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 
-/* ===== ANIMASI FOTO DAN TEKS SAAT DIGULIR ===== */
-document.addEventListener("DOMContentLoaded", function () {
-  const elemen = document.querySelectorAll(
-    ".hero-inner, .quote, .couple, .details, .gallery, " +
-    ".rsvp, .wishes, .gift, .closing, .person, " +
-    ".photo, .gallery-photo, .event, .bank-card"
-  );
+  // MUSIK: MULAI SETELAH TOMBOL PEMBUKA DIKLIK
+  const music = $("bgMusic");
+  const musicBtn = $("musicBtn");
+  const cover = $("cover");
+  const openBtn = $("openBtn");
 
-  if (!("IntersectionObserver" in window)) {
-    elemen.forEach(function (item) {
-      item.classList.add("is-visible");
+  if (music) {
+    music.volume = 0.65;
+    music.loop = true;
+  }
+
+  function updateMusicButton() {
+    if (!musicBtn || !music) return;
+
+    const playing = !music.paused;
+    musicBtn.classList.toggle("playing", playing);
+    musicBtn.textContent = playing ? "Ⅱ" : "♫";
+    musicBtn.setAttribute(
+      "aria-label",
+      playing ? "Jeda musik" : "Putar musik"
+    );
+  }
+
+  async function playMusic() {
+    if (!music) return;
+
+    try {
+      await music.play();
+    } catch (error) {
+      console.info("Musik belum bisa diputar. Tekan tombol musik untuk mencoba lagi.");
+    }
+
+    updateMusicButton();
+  }
+
+  if (openBtn) {
+    openBtn.addEventListener("click", async () => {
+      if (cover) cover.classList.add("closed");
+
+      document.body.classList.add("invitation-open");
+      await playMusic();
+
+      // Tampilkan undangan utama setelah cover dibuka
+      setTimeout(() => {
+        if ($("home")) {
+          $("home").scrollIntoView({ behavior: "smooth" });
+        }
+      }, 150);
     });
-    return;
   }
 
-  const pengamat = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        pengamat.unobserve(entry.target);
+  if (musicBtn) {
+    musicBtn.addEventListener("click", async () => {
+      if (!music) return;
+
+      if (music.paused) {
+        await playMusic();
+      } else {
+        music.pause();
+        updateMusicButton();
       }
     });
-  }, {
-    threshold: 0.12,
-    rootMargin: "0px 0px -25px 0px"
-  });
+  }
 
-  elemen.forEach(function (item) {
-    pengamat.observe(item);
-  });
-});
-/* ===== ANIMASI SAAT HALAMAN DIGULIR ===== */
-document.addEventListener("DOMContentLoaded", function () {
-  const elemenAnimasi = document.querySelectorAll(
-    ".hero-inner, .quote, .couple, .details, .gallery, " +
-    ".rsvp, .wishes, .gift, .closing, .person, " +
-    ".photo, .gallery-photo, .event"
+  if (music) {
+    music.addEventListener("play", updateMusicButton);
+    music.addEventListener("pause", updateMusicButton);
+    music.addEventListener("ended", updateMusicButton);
+  }
+
+  // RSVP WHATSAPP
+  const rsvpForm = $("rsvpForm");
+
+  if (rsvpForm) {
+    rsvpForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const name = $("rsvpName")?.value.trim();
+      const attendance = $("attendance")?.value;
+      const guestCount = $("guestCount")?.value;
+
+      if (!name) {
+        alert("Silakan isi nama terlebih dahulu.");
+        return;
+      }
+
+      const message = [
+        "Assalamu'alaikum, Dedi & Rinda.",
+        "",
+        "Saya ingin mengonfirmasi undangan pernikahan:",
+        "Nama: " + name,
+        "Konfirmasi: " + attendance,
+        "Jumlah tamu: " + guestCount + " orang",
+        "",
+        "Semoga acara berjalan lancar. Aamiin."
+      ].join("\n");
+
+      const url =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        encodeURIComponent(message);
+
+      window.open(url, "_blank", "noopener");
+    });
+  }
+
+  // SALIN NOMOR REKENING / DANA
+  async function copyText(text, label) {
+    if (!text || /belum (diisi|tersedia)/i.test(text)) {
+      alert("Informasi " + label + " belum dilengkapi.");
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(text);
+      alert(label + " berhasil disalin.");
+    } catch (error) {
+      // Cadangan jika clipboard tidak tersedia
+      const field = document.createElement("textarea");
+      field.value = text;
+      field.style.position = "fixed";
+      field.style.opacity = "0";
+      document.body.appendChild(field);
+      field.select();
+
+      const copied = document.execCommand("copy");
+      field.remove();
+
+      alert(copied
+        ? label + " berhasil disalin."
+        : "Silakan salin secara manual: " + text);
+    }
+  }
+
+  if ($("copyAccount")) {
+    $("copyAccount").addEventListener("click", () => {
+      copyText($("accountNumber")?.textContent.trim(), "nomor rekening");
+    });
+  }
+
+  if ($("copyWallet")) {
+    $("copyWallet").addEventListener("click", () => {
+      copyText($("walletNumber")?.textContent.trim(), "nomor DANA");
+    });
+  }
+
+  // ANIMASI SAAT SECTION MASUK KE LAYAR
+  const revealTargets = document.querySelectorAll(
+    ".section, .person, .event, .gallery-photo, .bank-card"
   );
 
-  /* Browser lama tetap menampilkan seluruh konten */
-  if (!("IntersectionObserver" in window)) return;
+  revealTargets.forEach((element) => element.classList.add("reveal"));
 
-  const pengamat = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          pengamat.unobserve(entry.target);
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
         }
       });
-    },
-    {
-      threshold: 0.12,
-      rootMargin: "0px 0px -35px 0px"
-    }
-  );
+    }, { threshold: 0.12 });
 
-  elemenAnimasi.forEach(function (elemen) {
-    elemen.classList.add("reveal");
-    pengamat.observe(elemen);
-  });
+    revealTargets.forEach((element) => observer.observe(element));
+  } else {
+    revealTargets.forEach((element) => element.classList.add("visible"));
+  }
+
+  // LINK DOA & UCAPAN DAN GOOGLE MAPS SUDAH DIATUR DI HTML
 });
