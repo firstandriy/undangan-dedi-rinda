@@ -628,3 +628,75 @@ hr {
     transition-duration: .01ms !important;
   }
 }
+/* AMPlOP DIGITAL - LUXURY BLACK & GOLD */
+.gift-section {
+  background: #090909;
+  color: #f7f0e2;
+}
+
+.gift-section .eyebrow {
+  color: #d7b568;
+  letter-spacing: 3px;
+}
+
+.gift-section h2 {
+  color: #e7cb85;
+}
+
+.gift-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.gift-card {
+  padding: 24px 18px;
+  border: 1px solid #9d8045;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #191713, #080808);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .3);
+  text-align: center;
+}
+
+.gift-label {
+  color: #d7b568;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.gift-card h3 {
+  color: #e7cb85;
+  margin: 12px 0;
+}
+
+.gift-owner {
+  color: #f7f0e2;
+  overflow-wrap: anywhere;
+}
+
+.gift-number {
+  color: #e7cb85;
+  font-size: 18px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  margin: 18px 0;
+}
+
+.gift-copy {
+  border: 1px solid #d7b568;
+  color: #e7cb85;
+  background: transparent;
+  cursor: pointer;
+}
+
+.gift-copy:hover {
+  background: #d7b568;
+  color: #090909;
+}
+
+@media (max-width: 520px) {
+  .gift-grid {
+    grid-template-columns: 1fr;
+  }
+}
