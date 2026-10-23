@@ -129,18 +129,44 @@
   <p class="tiny dark">Tautan Google Form perlu dibuat dan dimasukkan sebelum undangan dipublikasikan.</p>
 </section>
 
-<section class="section gift">
-  <p class="eyebrow">TANDA KASIH</p><h2>Amplop Digital</h2>
-  <p>Doa restu Anda adalah hadiah terindah bagi kami.</p>
+
+<section class="section gift-section" id="gift">
+  <p class="eyebrow">WEDDING GIFT</p>
+  <h2>Amplop Digital</h2>
+  <p class="small">
+    Doa restu Anda merupakan hadiah terindah bagi kami.
+    Jika ingin berbagi tanda kasih, dapat melalui rekening berikut.
+  </p>
+
   <div class="gift-grid">
-    <div class="bank-card">
-      <p><b>Transfer Bank</b></p><p id="bankName">Informasi bank belum diisi</p><strong id="accountNumber">Nomor rekening belum tersedia</strong><p id="accountOwner">Nama pemilik rekening belum diisi</p><button class="button small-button" id="copyAccount" disabled>Salin Nomor</button>
+
+    <!-- REKENING BCA -->
+    <div class="gift-card">
+      <p class="gift-label">REKENING BANK 01</p>
+      <h3>BCA</h3>
+      <p class="gift-owner">DEDI HERDIANTO</p>
+      <p class="gift-number" id="bankNumber1">3600121242</p>
+      <button class="button gift-copy"
+        type="button"
+        data-copy-account="bankNumber1">
+        Salin Nomor Rekening
+      </button>
     </div>
-    <div class="bank-card">
-      <p><b>Dompet Digital</b></p><p id="walletName">DANA</p><strong id="walletNumber">Nomor DANA belum tersedia</strong><p id="walletOwner">Nama pemilik akun belum diisi</p><button class="button small-button" id="copyWallet" disabled>Salin Nomor DANA</button>
+
+    <!-- REKENING BRI -->
+    <div class="gift-card">
+      <p class="gift-label">REKENING BANK 02</p>
+      <h3>BRI</h3>
+      <p class="gift-owner">Rinda Dwi Mangesti</p>
+      <p class="gift-number" id="bankNumber2">339901065791535</p>
+      <button class="button gift-copy"
+        type="button"
+        data-copy-account="bankNumber2">
+        Salin Nomor Rekening
+      </button>
     </div>
+
   </div>
-  <p class="tiny dark">Informasi bank dan DANA akan dilengkapi setelah nomor tujuan serta nama pemilik dikonfirmasi.</p>
 </section>
 
 <section class="section closing">
