@@ -1,191 +1,192 @@
+/* DEDI & RINDA — INTERACTIONS */
 (() => {
-  'use strict';
-  const $ = (selector, root = document) => root.querySelector(selector);
-  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-  const whatsappNumber = '6285701221321';
-  const galleryFiles = [
-    'foto-galeri-1.jpg',
-    'foto-galeri-2.jpg',
-    'foto-galeri-3.jpg',
-    'foto-galeri-4.jpg',
-    'foto-galeri-5.jpg',
-    'foto-galeri-6.jpg',
-    'foto-galeri-7.jpg',
-    'foto-galeri-8.jpg',
-    'foto-galeri-9.jpg',
-    'foto-galeri-10.jpg',
-    'foto-galeri-11.jpg',
-    'foto-galeri-12.jpg',
-    'foto-galeri-13.jpg'
-  ];
-  const galleryGrid = $('#galleryGrid');
-  const lightbox = $('#lightbox');
-  const lightboxImage = $('#lightboxImage');
-  const toast = $('#toast');
-  let activePhoto = 0;
-  let toastTimer;
+  const $ = (s, root = document) => root.querySelector(s);
+  const $$ = (s, root = document) => [...root.querySelectorAll(s)];
 
-  function guestFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return (params.get('to') || params.get('nama') || params.get('guest') || '').replace(/[<>]/g, '').trim().slice(0, 90);
-  }
-  // Lightweight falling champagne-gold petals on the cover only.
-  const cover = $('#cover');
-  if (cover && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    for (let i = 0; i < 13; i++) {
-      const petal = document.createElement('span');
-      petal.className = 'cinematic-petal';
-      petal.setAttribute('aria-hidden', 'true');
-      petal.style.setProperty('--x', `${Math.random() * 100}%`);
-      petal.style.setProperty('--size', `${4 + Math.random() * 6}px`);
-      petal.style.setProperty('--opacity', `${0.22 + Math.random() * 0.42}`);
-      petal.style.setProperty('--duration', `${12 + Math.random() * 15}s`);
-      petal.style.setProperty('--delay', `${-Math.random() * 24}s`);
-      petal.style.setProperty('--rotate', `${Math.round(Math.random() * 360)}deg`);
-      cover.appendChild(petal);
+  // Personalized guest name (?to=Nama%20Tamu)
+  const params = new URLSearchParams(window.location.search);
+  const guest = params.get("to");
+  if (guest && $("#guestName")) $("#guestName").textContent = guest.replace(/\+/g, " ").trim();
+
+  // Preloader: short branded intro
+  const preloader = $("#preloader");
+  const loaderBar = $("#loaderBar");
+  const loaderText = $("#loaderText");
+  let progress = 0;
+  const loadInterval = setInterval(() => {
+    progress = Math.min(progress + Math.floor(Math.random() * 15 + 7), 100);
+    if (loaderBar) loaderBar.style.width = progress + "%";
+    if (loaderText) loaderText.textContent = progress < 45 ? "Menyiapkan ornamen..." : progress < 85 ? "Menyiapkan momen bahagia..." : "Undangan siap dibuka";
+    if (progress >= 100) {
+      clearInterval(loadInterval);
+      setTimeout(() => preloader?.classList.add("done"), 350);
+    }
+  }, 120);
+
+  // Reveal on scroll
+  const revealEls = $$(".reveal");
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+  } else revealEls.forEach(el => el.classList.add("visible"));
+
+  // Music: browsers generally require a user gesture; start when opening invitation.
+  const music = $("#bgMusic");
+  const musicToggle = $("#musicToggle");
+  const musicLabel = $("#musicLabel");
+  async function playMusic() {
+    if (!music) return;
+    try {
+      await music.play();
+      musicToggle?.classList.add("playing");
+      if (musicLabel) musicLabel.textContent = "Musik menyala";
+    } catch (_) {
+      if (musicLabel) musicLabel.textContent = "Ketuk untuk musik";
     }
   }
-
-  const guestName = guestFromUrl();
-  if (guestName) {
-    $('#guestCover').textContent = guestName;
-    $('#guestName').value = guestName;
-    document.title = `Undangan untuk ${guestName} — Dedi & Rinda`;
+  function pauseMusic() {
+    music?.pause();
+    musicToggle?.classList.remove("playing");
+    if (musicLabel) musicLabel.textContent = "Putar Musik";
   }
-
-  function showToast(message) {
-    toast.textContent = message;
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 2400);
-  }
-
-  galleryFiles.forEach((file, index) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'gallery-item';
-    button.setAttribute('aria-label', `Lihat foto ${index + 1}`);
-    const img = document.createElement('img');
-    img.src = file;
-    img.alt = `Kenangan Dedi dan Rinda ${index + 1}`;
-    img.loading = 'lazy';
-    img.decoding = 'async';
-    img.onerror = () => { button.classList.add('image-missing'); button.title = `File ${file} tidak ditemukan`; };
-    button.appendChild(img);
-    button.addEventListener('click', () => openLightbox(index));
-    galleryGrid.appendChild(button);
+  $("#openInvitation")?.addEventListener("click", async () => {
+    await playMusic();
+    $("#intro")?.scrollIntoView({ behavior: "smooth" });
+  });
+  musicToggle?.addEventListener("click", () => {
+    if (music?.paused) playMusic(); else pauseMusic();
   });
 
-  function updateLightbox() {
-    lightboxImage.src = galleryFiles[activePhoto];
-    lightboxImage.alt = `Foto Dedi dan Rinda ${activePhoto + 1}`;
-    $('#lightboxCount').textContent = `${activePhoto + 1} / ${galleryFiles.length}`;
+  // Countdown to local Indonesia time (WIB)
+  const weddingDate = new Date("2026-11-22T08:00:00+07:00").getTime();
+  const pad = n => String(n).padStart(2, "0");
+  function updateCountdown() {
+    let diff = Math.max(0, weddingDate - Date.now());
+    const days = Math.floor(diff / 86400000); diff %= 86400000;
+    const hours = Math.floor(diff / 3600000); diff %= 3600000;
+    const minutes = Math.floor(diff / 60000); diff %= 60000;
+    const seconds = Math.floor(diff / 1000);
+    if ($("#days")) $("#days").textContent = pad(days);
+    if ($("#hours")) $("#hours").textContent = pad(hours);
+    if ($("#minutes")) $("#minutes").textContent = pad(minutes);
+    if ($("#seconds")) $("#seconds").textContent = pad(seconds);
   }
-  function openLightbox(index) {
-    activePhoto = index;
-    updateLightbox();
-    lightbox.classList.add('open');
-    lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    $('#lightboxClose').focus();
+  updateCountdown(); setInterval(updateCountdown, 1000);
+
+  // Gallery: 11 images, featured image, thumbnail navigation, lightbox, keyboard and swipe.
+  const photoPaths = Array.from({ length: 11 }, (_, i) => `foto-galeri-${i + 1}.jpg`);
+  const featured = $("#featuredPhoto");
+  const thumbsWrap = $("#galleryThumbs");
+  const count = $("#galleryCount");
+  const lightbox = $("#photoLightbox");
+  const lightboxImage = $("#lightboxImage");
+  const lightboxCounter = $("#lightboxCounter");
+  let photoIndex = 0;
+  let touchX = 0, touchY = 0;
+
+  // Use thumbnail assets as filenames; a missing photo will show a clear fallback rather than breaking controls.
+  function renderThumbs() {
+    if (!thumbsWrap) return;
+    thumbsWrap.innerHTML = "";
+    photoPaths.forEach((src, i) => {
+      const button = document.createElement("button");
+      button.className = "gallery-thumb" + (i === photoIndex ? " active" : "");
+      button.type = "button";
+      button.setAttribute("aria-label", `Pilih foto ${i + 1}`);
+      const img = document.createElement("img");
+      img.src = src; img.alt = `Galeri Dedi dan Rinda ${i + 1}`; img.loading = "lazy";
+      img.onerror = () => { button.style.display = "none"; };
+      button.appendChild(img);
+      button.addEventListener("click", () => showPhoto(i));
+      thumbsWrap.appendChild(button);
+    });
+  }
+  function showPhoto(i) {
+    photoIndex = (i + photoPaths.length) % photoPaths.length;
+    const src = photoPaths[photoIndex];
+    if (featured) {
+      featured.src = src;
+      featured.alt = `Foto Dedi dan Rinda ${photoIndex + 1}`;
+      featured.onerror = () => { featured.alt = `Pastikan file ${src} tersedia di repositori`; };
+    }
+    if (count) count.textContent = `${photoIndex + 1} / ${photoPaths.length}`;
+    $$(".gallery-thumb", thumbsWrap || document).forEach((el, idx) => el.classList.toggle("active", idx === photoIndex));
+    if (lightbox?.classList.contains("active")) {
+      lightboxImage.src = src;
+      lightboxImage.alt = `Foto Dedi dan Rinda ${photoIndex + 1}`;
+      if (lightboxCounter) lightboxCounter.textContent = `${photoIndex + 1} / ${photoPaths.length}`;
+    }
+  }
+  function openLightbox() {
+    if (!lightbox || !lightboxImage) return;
+    lightboxImage.src = photoPaths[photoIndex];
+    lightboxImage.alt = `Foto Dedi dan Rinda ${photoIndex + 1}`;
+    if (lightboxCounter) lightboxCounter.textContent = `${photoIndex + 1} / ${photoPaths.length}`;
+    lightbox.classList.add("active");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
   }
   function closeLightbox() {
-    lightbox.classList.remove('open');
-    lightbox.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    lightbox?.classList.remove("active");
+    lightbox?.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
   }
-  function movePhoto(direction) {
-    activePhoto = (activePhoto + direction + galleryFiles.length) % galleryFiles.length;
-    updateLightbox();
-  }
-  $('#lightboxClose').addEventListener('click', closeLightbox);
-  $('#lightboxPrev').addEventListener('click', () => movePhoto(-1));
-  $('#lightboxNext').addEventListener('click', () => movePhoto(1));
-  lightbox.addEventListener('click', event => { if (event.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', event => {
-    if (!lightbox.classList.contains('open')) return;
-    if (event.key === 'Escape') closeLightbox();
-    if (event.key === 'ArrowLeft') movePhoto(-1);
-    if (event.key === 'ArrowRight') movePhoto(1);
+  renderThumbs(); showPhoto(0);
+  $("#galleryPrev")?.addEventListener("click", () => showPhoto(photoIndex - 1));
+  $("#galleryNext")?.addEventListener("click", () => showPhoto(photoIndex + 1));
+  $("#galleryOpen")?.addEventListener("click", openLightbox);
+  featured?.addEventListener("click", openLightbox);
+  $("#lightboxClose")?.addEventListener("click", closeLightbox);
+  $("#lightboxPrev")?.addEventListener("click", () => showPhoto(photoIndex - 1));
+  $("#lightboxNext")?.addEventListener("click", () => showPhoto(photoIndex + 1));
+  lightbox?.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener("keydown", e => {
+    if (!lightbox?.classList.contains("active")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") showPhoto(photoIndex - 1);
+    if (e.key === "ArrowRight") showPhoto(photoIndex + 1);
   });
-  let touchStartX = 0;
-  lightbox.addEventListener('touchstart', event => { touchStartX = event.changedTouches[0].screenX; }, { passive: true });
-  lightbox.addEventListener('touchend', event => {
-    const delta = event.changedTouches[0].screenX - touchStartX;
-    if (Math.abs(delta) > 45) movePhoto(delta < 0 ? 1 : -1);
+  lightbox?.addEventListener("touchstart", e => {
+    touchX = e.changedTouches[0].clientX; touchY = e.changedTouches[0].clientY;
+  }, { passive: true });
+  lightbox?.addEventListener("touchend", e => {
+    const dx = e.changedTouches[0].clientX - touchX;
+    const dy = e.changedTouches[0].clientY - touchY;
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) showPhoto(photoIndex + (dx < 0 ? 1 : -1));
   }, { passive: true });
 
-  const audio = $('#weddingMusic');
-  const musicToggle = $('#musicToggle');
-  async function toggleMusic() {
-    try {
-      if (audio.paused) { await audio.play(); }
-      else audio.pause();
-    } catch (_) { showToast('Musik belum dapat diputar. Coba sentuh tombol musik lagi.'); }
-  }
-  musicToggle.addEventListener('click', toggleMusic);
-  audio.addEventListener('play', () => { musicToggle.classList.add('playing'); musicToggle.setAttribute('aria-label', 'Jeda musik'); $('.music-label', musicToggle).textContent = 'Jeda'; });
-  audio.addEventListener('pause', () => { musicToggle.classList.remove('playing'); musicToggle.setAttribute('aria-label', 'Putar musik'); $('.music-label', musicToggle).textContent = 'Musik'; });
-
-  $('#openInvitation').addEventListener('click', async () => {
-    const invitation = $('#invitation');
-    invitation.classList.add('open');
-    invitation.setAttribute('aria-hidden', 'false');
-    document.body.classList.remove('is-locked');
-    $('#cover').classList.add('cover-opened');
-    $('#preloader').classList.add('done');
-    try { await audio.play(); } catch (_) { /* Mobile browsers may require another tap. */ }
-    setTimeout(() => $('#salam').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  // RSVP via WhatsApp
+  $("#rsvpForm")?.addEventListener("submit", e => {
+    e.preventDefault();
+    const name = $("#rsvpName")?.value.trim() || "";
+    const guests = $("#rsvpCount")?.value || "1";
+    const status = $("#rsvpStatus")?.value || "Hadir";
+    const message = $("#rsvpMessage")?.value.trim() || "-";
+    const text = `Assalamu'alaikum, saya ${name} ingin mengonfirmasi undangan pernikahan Dedi & Rinda.%0AStatus: ${status}%0AJumlah tamu: ${guests}%0AUcapan & doa: ${message}`;
+    window.open(`https://wa.me/6285701221321?text=${encodeURIComponent(decodeURIComponent(text))}`, "_blank", "noopener");
   });
 
-  const weddingDate = new Date('2026-11-22T08:00:00+07:00').getTime();
-  function updateCountdown() {
-    let remaining = weddingDate - Date.now();
-    if (remaining <= 0) {
-      $('#days').textContent = '000'; $('#hours').textContent = '00'; $('#minutes').textContent = '00'; $('#seconds').textContent = '00';
-      return;
-    }
-    const day = Math.floor(remaining / 86400000); remaining %= 86400000;
-    const hour = Math.floor(remaining / 3600000); remaining %= 3600000;
-    const minute = Math.floor(remaining / 60000); remaining %= 60000;
-    const second = Math.floor(remaining / 1000);
-    $('#days').textContent = String(day).padStart(3, '0');
-    $('#hours').textContent = String(hour).padStart(2, '0');
-    $('#minutes').textContent = String(minute).padStart(2, '0');
-    $('#seconds').textContent = String(second).padStart(2, '0');
-  }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-
-  $('#rsvpForm').addEventListener('submit', event => {
-    event.preventDefault();
-    const name = $('#guestName').value.trim();
-    if (!name) { $('#guestName').focus(); return; }
-    const count = $('#guestCount').value;
-    const attendance = $('#attendance').value;
-    const message = `Assalamu'alaikum, saya ${name}.\n\nKonfirmasi undangan pernikahan Dedi Herdianto & Rinda Dwi Mangesti:\nKehadiran: ${attendance}\nJumlah: ${count}\n\nMinggu Pon, 22 November 2026.\nTerima kasih.`;
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
-  });
-
-  $$('.copy-account').forEach(button => button.addEventListener('click', async () => {
-    const number = button.dataset.copy;
-    try {
-      if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(number);
-      else {
-        const temp = document.createElement('textarea'); temp.value = number; temp.style.position = 'fixed'; temp.style.opacity = '0'; document.body.appendChild(temp); temp.select();
-        const ok = document.execCommand('copy'); temp.remove(); if (!ok) throw new Error('copy failed');
+  // Copy bank account numbers
+  $$(".copy-button").forEach(button => {
+    button.addEventListener("click", async () => {
+      const target = document.getElementById(button.dataset.copy);
+      const value = target?.textContent.trim();
+      if (!value) return;
+      try {
+        await navigator.clipboard.writeText(value);
+        const old = button.textContent;
+        button.textContent = "✓ Berhasil disalin";
+        setTimeout(() => button.textContent = old, 1800);
+      } catch (_) {
+        window.prompt("Salin nomor rekening berikut:", value);
       }
-      $('#copyStatus').textContent = `Nomor rekening ${button.dataset.bank} berhasil disalin.`;
-      showToast(`Nomor rekening ${button.dataset.bank} disalin`);
-    } catch (_) { $('#copyStatus').textContent = `Nomor rekening: ${number}`; showToast('Salin manual nomor rekening yang tampil.'); }
-  }));
-
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-    }), { threshold: 0.12 });
-    $$('.reveal').forEach(section => observer.observe(section));
-  } else $$('.reveal').forEach(section => section.classList.add('visible'));
-
-  window.addEventListener('load', () => setTimeout(() => $('#preloader').classList.add('done'), 350));
+    });
+  });
 })();
