@@ -220,3 +220,99 @@
     });
   });
 })();
+/* DEDI & RINDA — LUXURY CINEMATIC ADD-ON
+   Tambahkan setelah script.js. Animasi ringan; tidak menggantikan fungsi lama. */
+(() => {
+  'use strict';
+  const $ = (s, root = document) => root.querySelector(s);
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll progress line
+  const progress = document.createElement('div');
+  progress.className = 'lux-scroll-glow';
+  progress.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(progress);
+  let ticking = false;
+  const updateProgress = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (max > 0 ? Math.min(100, window.scrollY / max * 100) : 0) + '%';
+    ticking = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!ticking) { window.requestAnimationFrame(updateProgress); ticking = true; }
+  }, { passive: true });
+  updateProgress();
+
+  // Petals are decorative and hidden for reduced-motion preference.
+  if (!reduceMotion) {
+    const layer = document.createElement('div');
+    layer.id = 'luxPetals';
+    layer.setAttribute('aria-hidden', 'true');
+    const count = window.innerWidth < 680 ? 9 : 16;
+    for (let i = 0; i < count; i++) {
+      const petal = document.createElement('span');
+      petal.className = 'lux-petal';
+      petal.style.setProperty('--left', (Math.random() * 100) + '%');
+      petal.style.setProperty('--size', (5 + Math.random() * (window.innerWidth < 680 ? 7 : 10)) + 'px');
+      petal.style.setProperty('--opacity', (0.18 + Math.random() * 0.38).toFixed(2));
+      petal.style.setProperty('--rotation', Math.round(Math.random() * 360) + 'deg');
+      petal.style.setProperty('--duration', (15 + Math.random() * 17) + 's');
+      petal.style.setProperty('--delay', (-Math.random() * 28) + 's');
+      layer.appendChild(petal);
+    }
+    document.body.appendChild(layer);
+  }
+
+  // Gentle parallax on cover only; avoid heavy scroll work on mobile.
+  const heroBackdrop = $('.hero-backdrop');
+  if (heroBackdrop && !reduceMotion) {
+    let heroTick = false;
+    window.addEventListener('scroll', () => {
+      if (heroTick) return;
+      heroTick = true;
+      window.requestAnimationFrame(() => {
+        if (window.scrollY < window.innerHeight * 1.2) {
+          heroBackdrop.style.setProperty('--lux-parallax', Math.min(24, window.scrollY * .06) + 'px');
+        }
+        heroTick = false;
+      });
+    }, { passive: true });
+  }
+
+  // Replace the local-only note with an honest, calm status until Sheets is configured.
+  const note = $('#wishNote');
+  if (note) {
+    note.textContent = 'Buku tamu online belum dihubungkan. Ucapan saat ini hanya tersimpan di browser perangkat ini.';
+    note.setAttribute('role', 'status');
+  }
+
+  // Official bank logo artwork from Wikimedia Commons (requires internet access).
+  // If image loading fails, readable bank-name fallback remains visible.
+  const bankLogos = [
+    { selector: '.bca-logo', src: 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg', alt: 'Logo Bank BCA' },
+    { selector: '.bri-logo', src: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Bank_Rakyat_Indonesia_logo.svg', alt: 'Logo Bank BRI' }
+  ];
+  bankLogos.forEach(item => {
+    const holder = $(item.selector);
+    if (!holder || holder.querySelector('img')) return;
+    const image = document.createElement('img');
+    image.src = item.src;
+    image.alt = item.alt;
+    image.loading = 'lazy';
+    image.referrerPolicy = 'no-referrer';
+    image.onerror = () => { image.remove(); };
+    holder.replaceChildren(image);
+  });
+
+  // Animate the active gallery image with a brief cinematic transition.
+  const galleryImage = $('#featuredPhoto');
+  if (galleryImage && !reduceMotion) {
+    galleryImage.addEventListener('load', () => {
+      galleryImage.animate(
+        [{ opacity: .45, transform: 'scale(1.035)', filter: 'blur(3px)' },
+         { opacity: 1, transform: 'scale(1)', filter: 'blur(0)' }],
+        { duration: 650, easing: 'cubic-bezier(.2,.8,.2,1)' }
+      );
+    });
+  }
+})();
