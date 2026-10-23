@@ -29,6 +29,23 @@
     const params = new URLSearchParams(window.location.search);
     return (params.get('to') || params.get('nama') || params.get('guest') || '').replace(/[<>]/g, '').trim().slice(0, 90);
   }
+  // Lightweight falling champagne-gold petals on the cover only.
+  const cover = $('#cover');
+  if (cover && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    for (let i = 0; i < 13; i++) {
+      const petal = document.createElement('span');
+      petal.className = 'cinematic-petal';
+      petal.setAttribute('aria-hidden', 'true');
+      petal.style.setProperty('--x', `${Math.random() * 100}%`);
+      petal.style.setProperty('--size', `${4 + Math.random() * 6}px`);
+      petal.style.setProperty('--opacity', `${0.22 + Math.random() * 0.42}`);
+      petal.style.setProperty('--duration', `${12 + Math.random() * 15}s`);
+      petal.style.setProperty('--delay', `${-Math.random() * 24}s`);
+      petal.style.setProperty('--rotate', `${Math.round(Math.random() * 360)}deg`);
+      cover.appendChild(petal);
+    }
+  }
+
   const guestName = guestFromUrl();
   if (guestName) {
     $('#guestCover').textContent = guestName;
