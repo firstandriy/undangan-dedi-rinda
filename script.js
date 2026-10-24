@@ -41,16 +41,17 @@
   }
   updateCountdown(); setInterval(updateCountdown, 1000);
 
-  // Gallery from existing repo image names. Closing photo uses foto-galeri-7.jpg.
+  // Use the photo filenames that actually exist in the GitHub repository.
   const gallery = $('#galleryGrid');
+  const galleryPhotos = ['foto-pasangan.jpg','foto-adat-1.jpg','foto-adat-2.jpg','cover.jpg','foto-sampul.jpg'];
   if (gallery) {
-    for (let n=1; n<=11; n++) {
-      const button=document.createElement('button'); button.className='gallery-item'; button.type='button'; button.setAttribute('aria-label',`Lihat foto galeri ${n}`);
-      const img=document.createElement('img'); img.src=`foto-galeri-${n}.jpg`; img.alt=`Momen Dedi dan Rinda ${n}`; img.loading='lazy'; img.decoding='async';
-      img.onerror=()=>{button.style.display='none';}; button.appendChild(img);
+    galleryPhotos.forEach((filename, index) => {
+      const button=document.createElement('button'); button.className='gallery-item'; button.type='button'; button.setAttribute('aria-label',`Lihat foto galeri ${index+1}`);
+      const img=document.createElement('img'); img.src=filename; img.alt=`Momen Dedi dan Rinda ${index+1}`; img.loading='lazy'; img.decoding='async';
+      img.onerror=()=>{button.remove();}; button.appendChild(img);
       button.addEventListener('click',()=>{ const viewer=document.createElement('div'); viewer.className='photo-viewer'; viewer.style.cssText='position:fixed;inset:0;z-index:120;background:#000e;display:grid;place-items:center;padding:20px;'; const big=document.createElement('img'); big.src=img.src; big.alt=img.alt; big.style.cssText='max-width:100%;max-height:88vh;object-fit:contain;border:1px solid #c9a45b;padding:5px;background:#111;'; viewer.appendChild(big); viewer.addEventListener('click',()=>viewer.remove()); viewer.addEventListener('keydown',e=>{if(e.key==='Escape')viewer.remove();}); document.body.appendChild(viewer); });
       gallery.appendChild(button);
-    }
+    });
   }
 
   // Copy account number/address
