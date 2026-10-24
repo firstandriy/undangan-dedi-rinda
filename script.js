@@ -41,7 +41,7 @@
   }
   updateCountdown(); setInterval(updateCountdown, 1000);
 
-  // Gallery from existing repo image names. Closing photo uses foto-galeri-7.jpg.
+  // Gallery photos: foto-galeri-3.jpg is also the countdown background.
   const gallery = $('#galleryGrid');
   if (gallery) {
     for (let n=1; n<=11; n++) {
@@ -51,6 +51,21 @@
       button.addEventListener('click',()=>{ const viewer=document.createElement('div'); viewer.className='photo-viewer'; viewer.style.cssText='position:fixed;inset:0;z-index:120;background:#000e;display:grid;place-items:center;padding:20px;'; const big=document.createElement('img'); big.src=img.src; big.alt=img.alt; big.style.cssText='max-width:100%;max-height:88vh;object-fit:contain;border:1px solid #c9a45b;padding:5px;background:#111;'; viewer.appendChild(big); viewer.addEventListener('click',()=>viewer.remove()); viewer.addEventListener('keydown',e=>{if(e.key==='Escape')viewer.remove();}); document.body.appendChild(viewer); });
       gallery.appendChild(button);
     }
+  }
+
+  // Auto-moving photo album. Pause while the guest touches or hovers the gallery.
+  if (gallery) {
+    let galleryPaused = false;
+    gallery.addEventListener('pointerenter', () => { galleryPaused = true; });
+    gallery.addEventListener('pointerleave', () => { galleryPaused = false; });
+    gallery.addEventListener('touchstart', () => { galleryPaused = true; }, {passive:true});
+    gallery.addEventListener('touchend', () => { window.setTimeout(() => { galleryPaused = false; }, 1800); }, {passive:true});
+    window.setInterval(() => {
+      if (galleryPaused || document.hidden || gallery.scrollWidth <= gallery.clientWidth) return;
+      const maxScroll = gallery.scrollWidth - gallery.clientWidth;
+      if (gallery.scrollLeft >= maxScroll - 4) gallery.scrollTo({left:0,behavior:'smooth'});
+      else { const first = gallery.querySelector('.gallery-item'); const gap = parseFloat(getComputedStyle(gallery).columnGap) || 12; gallery.scrollBy({left:(first ? first.getBoundingClientRect().width : 180)+gap,behavior:'smooth'}); }
+    }, 3200);
   }
 
   // Copy account number/address
