@@ -76,7 +76,8 @@
   }));
 
   // Shared wedding wishes via Google Apps Script + Google Sheets.
-  const wishesApi = 'https://script.google.com/macros/s/AKfycby_hmZPaD46QQql3wbIOqDkw8wJloClfJDWMCQxSL6AB0Pl70ZdNP6P_-1A2l80sigb/exec';
+  
+const wishesApi = 'https://script.google.com/macros/s/AKfycbzLnElAvJ74sjHFcLQMYx9I67pzdGuYJtuANELMjEGu5qSZM41Pe6mSDfyKzfBqTYKVZw/exec';
   const storageKey='dediRindaLuxuryWishesV2';
   let sharedWishes=[];
   function readLocalWishes(){try{return JSON.parse(localStorage.getItem(storageKey)||'[]')}catch(_){return []}}
@@ -96,7 +97,7 @@
   function loadSharedWishes(){
     const callbackName='__dediRindaWishesCallback';
     window[callbackName]=(data)=>{
-      if(data && data.success && Array.isArray(data.ucapan)){
+      if(data && data.berhasil && Array.isArray(data.ucapan)){
         sharedWishes=data.ucapan.map(item=>({name:item.nama,status:item.kehadiran,message:item.ucapan,waktu:item.waktu}));
         renderWishes();
       }
