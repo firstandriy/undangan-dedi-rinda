@@ -75,11 +75,61 @@
     catch (_) { const input=document.createElement('textarea'); input.value=value; input.style.position='fixed'; input.style.opacity='0'; document.body.appendChild(input); input.select(); try { document.execCommand('copy'); toast('Berhasil disalin'); } catch (e) { toast(value); } input.remove(); }
   }));
 
-  // Wishes are local to the device until a shared backend is connected.
+  // Shared wedding wishes via Google Apps Script + Google Sheets.
+  const wishesApi = 'https://script.google.com/macros/s/AKfycby_hmZPaD46QQql3wbIOqDkw8wJloClfJDWMCQxSL6AB0Pl70ZdNP6P_-1A2l80sigb/exec';
   const storageKey='dediRindaLuxuryWishesV2';
-  function readWishes(){try{return JSON.parse(localStorage.getItem(storageKey)||'[]')}catch(_){return []}}
-  function renderWishes(){const list=$('#wishList'); if(!list)return; list.replaceChildren(); readWishes().slice().reverse().slice(0,8).forEach(item=>{const card=document.createElement('article');card.className='wish-item';const name=document.createElement('strong');name.textContent=item.name;const status=document.createElement('span');status.textContent=item.status;const msg=document.createElement('p');msg.textContent=item.message;card.append(name,status,msg);list.append(card);});}
-  $('#wishForm')?.addEventListener('submit',e=>{e.preventDefault();const name=$('#wishName').value.trim();const status=$('#wishStatus').value;const message=$('#wishMessage').value.trim();if(!name||!message)return;const wishes=readWishes();wishes.push({name,status,message,date:new Date().toISOString()});try{localStorage.setItem(storageKey,JSON.stringify(wishes.slice(-60)));e.target.reset();renderWishes();toast('Ucapan tersimpan di perangkat ini');}catch(_){toast('Penyimpanan browser tidak tersedia');}});
+  let sharedWishes=[];
+  function readLocalWishes(){try{return JSON.parse(localStorage.getItem(storageKey)||'[]')}catch(_){return []}}
+  function renderWishes(){
+    const list=$('#wishList'); if(!list)return;
+    list.replaceChildren();
+    const all=[...sharedWishes, ...readLocalWishes()];
+    const seen=new Set();
+    all.reverse().filter(item=>{const key=[item.name,item.message].join('\u0000');if(seen.has(key))return false;seen.add(key);return true;}).slice(0,8).forEach(item=>{
+      const card=document.createElement('article');card.className='wish-item';
+      const name=document.createElement('strong');name.textContent=item.name||'Tamu';
+      const status=document.createElement('span');status.textContent=item.status||item.kehadiran||'';
+      const msg=document.createElement('p');msg.textContent=item.message||item.ucapan||'';
+      card.append(name,status,msg);list.append(card);
+    });
+  }
+  function loadSharedWishes(){
+    const callbackName='__dediRindaWishesCallback';
+    window[callbackName]=(data)=>{
+      if(data && data.success && Array.isArray(data.ucapan)){
+        sharedWishes=data.ucapan.map(item=>({name:item.nama,status:item.kehadiran,message:item.ucapan,waktu:item.waktu}));
+        renderWishes();
+      }
+      const old=document.getElementById('wishes-api-script');if(old)old.remove();
+      try{delete window[callbackName];}catch(_){window[callbackName]=undefined;}
+    };
+    const old=document.getElementById('wishes-api-script');if(old)old.remove();
+    const script=document.createElement('script');script.id='wishes-api-script';
+    script.src=wishesApi+'?callback='+callbackName+'&t='+Date.now();
+    script.onerror=()=>{script.remove();};
+    document.head.appendChild(script);
+  }
+  $('#wishForm')?.addEventListener('submit',async e=>{
+    e.preventDefault();
+    const name=$('#wishName').value.trim();
+    const selectedStatus=$('#wishStatus').value;
+    const message=$('#wishMessage').value.trim();
+    if(!name||!message)return;
+    const status=selectedStatus==='Insyaallah hadir'?'Hadir':(selectedStatus==='Maaf, belum bisa hadir'?'Tidak Hadir':selectedStatus);
+    const button=e.target.querySelector('button[type="submit"]');
+    if(button)button.disabled=true;
+    try{
+      // text/plain is a simple cross-origin request; Apps Script receives JSON in postData.contents.
+      await fetch(wishesApi,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify({nama:name,kehadiran:status,ucapan:message})});
+      e.target.reset();
+      toast('Ucapan dikirim. Memperbarui daftar...');
+      setTimeout(loadSharedWishes,1800);
+    }catch(_){
+      const local=readLocalWishes();local.push({name,status:selectedStatus,message,date:new Date().toISOString()});
+      try{localStorage.setItem(storageKey,JSON.stringify(local.slice(-60)));renderWishes();toast('Koneksi gagal; ucapan disimpan sementara di perangkat ini.');}catch(__){toast('Gagal mengirim ucapan. Coba lagi.');}
+    }finally{if(button)button.disabled=false;}
+  });
+  loadSharedWishes();
   renderWishes();
 
   // Light gold dust + petals: capped particles, no canvas or animation library.
